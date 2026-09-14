@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.ruff_cache/
+
+# artifacts — large, reproducible, pure noise in diffs
+data/artifacts/*
+!data/artifacts/.gitkeep
+data/raw/*
+!data/raw/.gitkeep
+
+# secrets
+.env
+.classiq_credentials
