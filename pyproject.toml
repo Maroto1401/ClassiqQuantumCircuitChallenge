@@ -1,0 +1,23 @@
+[project]
+name = "qoracle"
+version = "0.1.0"
+description = "Low-depth phase oracle synthesis for a 64x64 binary image"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "qiskit>=1.0", "click>=8.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "ruff"]
+extra = ["pillow", "pyzx", "matplotlib"]
+
+[project.scripts]
+qo = "qoracle.cli:cli"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
