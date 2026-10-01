@@ -349,6 +349,8 @@ tools/              submission + verification toolchain
   step6.py                  the organisers' Step 6 acceptance test, verbatim
 
 notes/DECISIONS.md  condensed decision log: what was tried, and why it was kept or killed
+CLAUDE.md           working brief the project was actually run from (conventions,
+                    live standings, dead ends) — kept as a record of process
 ```
 
 ### Architecture note
