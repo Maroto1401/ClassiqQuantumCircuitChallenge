@@ -20,3 +20,14 @@ data/raw/*
 # secrets
 .env
 .classiq_credentials
+abc/
+
+# stray / local-only
+\#/
+abc.history
+.claude/
+notes/region_map_artifact.html
+
+# solver caches and regenerated outputs
+*.pkl
+research/oracle_rebuilt.qasm

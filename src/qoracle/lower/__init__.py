@@ -28,4 +28,4 @@ def available() -> list[str]:
     return sorted(_REGISTRY)
 
 
-from . import serial_mcz, fanout  # noqa: E402,F401
+from . import serial_mcz, gf2_ancilla, rect_ancilla, gf2_cpsat_hybrid  # noqa: E402,F401

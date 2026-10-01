@@ -9,7 +9,7 @@ import click
 
 from . import cover as cover_mod
 from . import lower as lower_mod
-from .io import load_target, synthetic_target
+from .io import load_target, logo_target, synthetic_target
 from .leaderboard import render
 from .metrics import BASES, DEFAULT_BASIS
 from .pipeline import Pipeline
@@ -17,12 +17,16 @@ from .store import Store
 
 
 def _spec(target: str | None):
-    return synthetic_target() if target in (None, "synthetic") else load_target(target)
+    if target in (None, "logo"):
+        return logo_target()
+    if target == "synthetic":
+        return synthetic_target()
+    return load_target(target)
 
 
 @click.group()
 @click.option("--store", default="data/artifacts", help="artifact root")
-@click.option("--target", default=None, help="path to target image, or 'synthetic'")
+@click.option("--target", default=None, help="path to target image, 'logo' (default), or 'synthetic'")
 @click.pass_context
 def cli(ctx, store, target):
     ctx.obj = Pipeline(spec=_spec(target), store=Store(Path(store)))
@@ -74,6 +78,43 @@ def score(pipe, basis, opt_level):
 def leaderboard(pipe, basis):
     """Ranked table from stored artifacts."""
     click.echo(render(pipe.store, basis))
+
+
+@cli.command("classiq-score")
+@click.option("--circuit-key", required=True, help="circuit key, e.g. from `qo run`")
+@click.option("--basis", default=DEFAULT_BASIS)
+@click.pass_obj
+def classiq_score_cmd(pipe, circuit_key, basis):
+    """Score ONE stored circuit with Classiq's own AUTO_OPTIMIZE compiler.
+
+    Authoritative vs. metrics.py's Qiskit proxy, but needs `pip install -e
+    ".[classiq]"` and a prior `classiq.authenticate()` on this machine.
+    """
+    from . import classiq_score as cq
+    qc = pipe.store.load_circuit(circuit_key)
+    res = cq.score(qc, basis=basis).as_dict()
+    pipe.store.write_side(circuit_key, "metrics_classiq.json", res)
+    click.echo(json.dumps(res, indent=2))
+
+
+@cli.command("native-run")
+@click.option("--name", required=True, help="registered classiq_native model, e.g. 'rectangles'")
+@click.pass_context
+def native_run(ctx, name):
+    """Track B: build+synthesize+score a Classiq-native qmod model (bypasses PhaseIR).
+
+    Needs `pip install -e ".[classiq]"` and a prior `classiq.authenticate()`.
+    """
+    from . import classiq_native as cn
+    res = cn.run(name)
+    click.echo(json.dumps(res, indent=2))
+
+
+@cli.command("native-list")
+def native_list():
+    """List registered Track B (classiq_native) models."""
+    from . import classiq_native as cn
+    click.echo(f"classiq_native models: {cn.available()}")
 
 
 if __name__ == "__main__":

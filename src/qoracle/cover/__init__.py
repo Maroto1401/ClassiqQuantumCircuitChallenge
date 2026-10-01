@@ -33,4 +33,4 @@ def available() -> list[str]:
     return sorted(_REGISTRY)
 
 
-from . import minterm, pprm, esop_abc  # noqa: E402,F401
+from . import minterm, pprm, esop_abc, gf2_factor, rect_groups  # noqa: E402,F401

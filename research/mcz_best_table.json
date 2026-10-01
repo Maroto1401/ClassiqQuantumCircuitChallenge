@@ -1,0 +1,52 @@
+{
+  "3": {
+    "method": "kg24",
+    "depth": 10,
+    "cx": 6
+  },
+  "4": {
+    "method": "tree0",
+    "depth": 15,
+    "cx": 13
+  },
+  "5": {
+    "method": "tree0",
+    "depth": 27,
+    "cx": 19
+  },
+  "6": {
+    "method": "tree3",
+    "depth": 25,
+    "cx": 24
+  },
+  "7": {
+    "method": "tree0",
+    "depth": 27,
+    "cx": 31
+  },
+  "8": {
+    "method": "tree0",
+    "depth": 27,
+    "cx": 37
+  },
+  "9": {
+    "method": "tree0",
+    "depth": 36,
+    "cx": 42
+  },
+  "10": {
+    "method": "tree0",
+    "depth": 55,
+    "cx": 56
+  },
+  "11": {
+    "method": "kg24",
+    "depth": 64,
+    "cx": 54
+  },
+  "12": {
+    "method": "tree2",
+    "depth": 66,
+    "cx": 60
+  }
+}
